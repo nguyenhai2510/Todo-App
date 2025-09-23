@@ -1,0 +1,36 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 30vw;
+  height: 100%;
+  background-color: white;
+  box-shadow: -2px 0 3px gray;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.sb-form {
+  padding: 10px;
+}
+.sb-footer {
+  padding: 10px;
+  border-top: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sb-form-field {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.sb-footer button {
+  padding: 3px 5px;
+  background-color: #007bff;
+  border: 1px solid #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
