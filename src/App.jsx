@@ -6,13 +6,31 @@ import FilterPanel from "./components/FilterPanel/index.jsx";
 
 function App() {
   const [todoList, setTodoList] = useState([
-    { id: 1, name: "Buy groceries", isImportant: true, isCompleted: false },
-    { id: 2, name: "Walk the dog", isImportant: false, isCompleted: true },
-    { id: 3, name: "Read a book", isImportant: false, isCompleted: false },
+    {
+      id: 1,
+      name: "Buy groceries",
+      isImportant: true,
+      isCompleted: false,
+      isDeleted: false,
+    },
+    {
+      id: 2,
+      name: "Walk the dog",
+      isImportant: false,
+      isCompleted: true,
+      isDeleted: false,
+    },
+    {
+      id: 3,
+      name: "Read a book",
+      isImportant: false,
+      isCompleted: false,
+      isDeleted: false,
+    },
   ]);
 
   const [selectedFilter, setSelectedFilter] = useState("all");
-  
+
   const [activeTodo, setActiveTodo] = useState();
 
   const [showSidebar, setShowSidebar] = useState(false);
@@ -45,17 +63,32 @@ function App() {
     setTodoList(newTodoList);
   };
 
-  const todos = todoList.map((todo, index) => (
-    <TodoItem
-      id={todo.id}
-      key={todo.id}
-      name={todo.name}
-      isImportant={todo.isImportant}
-      isCompleted={todo.isCompleted}
-      handleCompletedCheckboxChange={handleCompletedCheckboxChange}
-      handleTodoItemClick={toggleSidebar}
-    />
-  ));
+  const filterTodos = todoList
+    .filter((todo) => {
+      switch (selectedFilter) {
+        case "all":
+          return true;
+        case "important":
+          return todo.isImportant;
+        case "completed":
+          return todo.isCompleted;
+        case "deleted":
+          return todo.isDeleted;
+        default:
+          return true;
+      }
+    })
+    .map((todo) => (
+      <TodoItem
+        id={todo.id}
+        key={todo.id}
+        name={todo.name}
+        isImportant={todo.isImportant}
+        isCompleted={todo.isCompleted}
+        handleCompletedCheckboxChange={handleCompletedCheckboxChange}
+        handleTodoItemClick={toggleSidebar}
+      />
+    ));
   const inputRef = useRef();
   // console.log({ inputRef });
   return (
@@ -78,6 +111,7 @@ function App() {
                 name: e.target.value,
                 isImportant: false,
                 isCompleted: false,
+                isDeleted: false,
               };
               console.log("Adding new todo:", newTodo);
               setTodoList([...todoList, newTodo]);
@@ -85,7 +119,7 @@ function App() {
             }
           }}
         />
-        <div>{todos}</div>
+        <div>{filterTodos}</div>
         {showSidebar && (
           <Sidebar
             TodoItem={activeTodoData}

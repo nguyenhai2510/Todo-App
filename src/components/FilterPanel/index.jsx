@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import "./index.css";
 import "../../App.css"; // Importing App.css to apply styles
 const FILTER_ITEMS = [
@@ -23,14 +24,19 @@ const FILTER_ITEMS = [
     icon: "../../../public/delete.png",
   },
 ];
-const FilterPanel = ({selectedFilter, setSelectedFilter}) => {
-  // const [selectedFilter, setSelectedFilter] = useState("all");
+const FilterPanel = ({ selectedFilter, setSelectedFilter }) => {
   return (
     <div className="filter-pannel">
-      <input name="search-todo" type="text" placeholder="Search todo..." className="search-todo"/>
+      <input
+        name="search-todo"
+        type="text"
+        placeholder="Search todo..."
+        className="search-todo"
+      />
       <div className="filter-container">
         {FILTER_ITEMS.map((item) => (
           <div
+            key={item.id}
             className={`filter-item ${
               selectedFilter === item.id ? "selected" : ""
             }`}
@@ -46,6 +52,11 @@ const FilterPanel = ({selectedFilter, setSelectedFilter}) => {
       </div>
     </div>
   );
+};
+
+FilterPanel.propTypes = {
+  selectedFilter: PropTypes.string,
+  setSelectedFilter: PropTypes.func,
 };
 
 export default FilterPanel;

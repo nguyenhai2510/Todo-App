@@ -38,7 +38,7 @@ const Sidebar = (props) => {
             id="sb-important"
             type="checkbox"
             checked={isImportant}
-            onChange={(e) => {
+            onChange={() => {
               setIsImportant(!isImportant);
             }}
           />
@@ -49,7 +49,7 @@ const Sidebar = (props) => {
             id="sb-completed"
             type="checkbox"
             checked={isCompleted}
-            onChange={(e) => {
+            onChange={() => {
               setIsCompleted(!isCompleted);
             }}
           />
