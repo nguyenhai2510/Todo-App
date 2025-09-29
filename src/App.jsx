@@ -96,6 +96,7 @@ function App() {
       <FilterPanel
         selectedFilter={selectedFilter}
         setSelectedFilter={setSelectedFilter}
+        todoList={todoList}
       />
       <div className="main-content">
         <input

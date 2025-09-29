@@ -24,7 +24,25 @@ const FILTER_ITEMS = [
     icon: "../../../public/delete.png",
   },
 ];
-const FilterPanel = ({ selectedFilter, setSelectedFilter }) => {
+const FilterPanel = ({ selectedFilter, setSelectedFilter, todoList }) => {
+  const countByFiltertType = todoList.reduce(
+    (acc, cur) => {
+      let newAcc = { ...acc };
+      if (cur.isDeleted) {
+        return { ...newAcc, deleted: newAcc.deleted + 1 };
+      }
+      if (cur.isCompleted) {
+        return { ...newAcc, completed: newAcc.completed + 1 };
+      }
+      if (cur.isImportant) {
+        return { ...newAcc, important: newAcc.important + 1 };
+      }
+      return newAcc;
+    },
+    { all: todoList.length, important: 0, completed: 0, deleted: 0 }
+  );
+  console.log(countByFiltertType);
+
   return (
     <div className="filter-pannel">
       <input
@@ -46,7 +64,7 @@ const FilterPanel = ({ selectedFilter, setSelectedFilter }) => {
               <img src={item.icon} alt={item.label} />
               <div>{item.label}</div>
             </div>
-            <p>17</p>
+            <p>{countByFiltertType[item.id]}</p>
           </div>
         ))}
       </div>
@@ -57,6 +75,7 @@ const FilterPanel = ({ selectedFilter, setSelectedFilter }) => {
 FilterPanel.propTypes = {
   selectedFilter: PropTypes.string,
   setSelectedFilter: PropTypes.func,
+  todoList: PropTypes.array,
 };
 
 export default FilterPanel;
